@@ -20,5 +20,9 @@
   "homepage": "https://github.com/ImamAlfariziSyahputra/amazon-clone#readme",
   "dependencies": {
     "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "eslint": "^7.30.0",
+    "eslint-plugin-react": "^7.24.0"
   }
 }
