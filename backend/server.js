@@ -1,9 +1,14 @@
 import express from 'express'
 import mongoose from 'mongoose';
+import dotenv from 'dotenv';
 import productRouter from './routers/productRouter.js';
 import userRouter from './routers/userRouter.js';
 
+dotenv.config();
 const app = express();
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 mongoose.connect(process.env.MONGODB_URL || 'mongodb://localhost:27017/amazon-clone', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -13,6 +18,7 @@ mongoose.connect(process.env.MONGODB_URL || 'mongodb://localhost:27017/amazon-cl
 app.use('/api/users', userRouter);
 app.use('/api/products', productRouter);
 
+// eslint-disable-next-line no-unused-vars
 app.use((err, req, res, next) => {
   res.status(500).send({
     message: err.message,
@@ -23,6 +29,6 @@ app.get('/', (req, res) => {
   res.send('Server is ready');
 });
 
-app.listen(5000, () => {
-  console.log(`Serve at http://localhost:5000`);
+app.listen(process.env.APP_PORT || 5000, () => {
+  console.log(`Serve at http://localhost:${process.env.APP_PORT}`);
 })
